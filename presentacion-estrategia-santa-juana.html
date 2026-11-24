@@ -360,17 +360,9 @@ h2 em{font-style:italic;color:var(--gold)}
   </div>
 </section>
 
-<!-- 09 CALENDARIO -->
-<section class="slide" data-title="Calendario">
-  <div class="kicker"><span><b>08</b> · Calendario</span><span>Primer ciclo · 4 semanas · 5 piezas por semana</span></div>
-  <h2>Un ritmo que <em>sostiene</em> la conversación.</h2>
-  <div class="cal" id="cal"></div>
-  <div class="cal-detail"><div id="calTxt"></div><div class="legend"><span><i class="lv n1"></i>Inconsciente</span><span><i class="lv n2"></i>Problema</span><span><i class="lv n3"></i>Solución</span></div></div>
-</section>
-
-<!-- 10 MEDICIÓN -->
+<!-- 09 MEDICIÓN -->
 <section class="slide dark" data-title="Medición">
-  <div class="kicker"><span><b>09</b> · Medición y siguientes pasos</span><span>Santa Juana</span></div>
+  <div class="kicker"><span><b>08</b> · Medición y siguientes pasos</span><span>Santa Juana</span></div>
   <h2>Cómo sabremos que <em>funciona</em>.</h2>
   <div class="kpi">
     <div><span class="eyebrow"><i class="lv n1"></i>Nivel 1</span><h4>Alcance</h4><p>Vistas, retención a 3 s y compartidos.</p><div class="mix">40%</div></div>
@@ -518,24 +510,6 @@ trends.forEach((t,i)=>{const li=document.createElement('li');li.innerHTML=`<span
   li.onclick=()=>{single(tl,li);sw.innerHTML=`<div class="side a"><div class="eyebrow">Tendencia · ${t[1]}</div><h3>${t[0]}</h3><p>${t[2]}</p><div class="src">Referencia: ${t[4]}</div></div>
   <div class="arrow">→</div><div class="side b"><div class="eyebrow">Versión Santa Juana</div><h3>Adaptación local</h3><p>${t[3]}</p></div>`};
   tl.appendChild(li);if(i===0)li.click()});
-
-/* ---------- 09 Calendario ---------- */
-const days=['Lunes','Miércoles','Jueves','Viernes','Domingo'];
-const cal=document.getElementById('cal'),ct=document.getElementById('calTxt');
-cal.insertAdjacentHTML('beforeend','<div class="h"></div>'+days.map(d=>`<div class="h">${d}</div>`).join(''));
-const colors={1:'var(--n1)',2:'var(--n2)',3:'var(--n3)'};
-let firstCell=null;
-[1,2,3,4].forEach(w=>{
-  cal.insertAdjacentHTML('beforeend',`<div class="w">Semana ${w}</div>`);
-  days.forEach(d=>{const it=ideas.find(x=>x[8]===w&&x[9]===d);const b=document.createElement('button');b.className='cell';
-    b.style.borderLeftColor=colors[it[1]];
-    b.innerHTML=`<span class="num">${pad(it[0])}</span><span>${it[3]}</span>`;
-    b.onclick=()=>{cal.querySelectorAll('.cell').forEach(c=>c.classList.remove('on'));b.classList.add('on');
-      ct.innerHTML=`<em>Semana ${w} · ${d}</em> &nbsp; ${it[3]} — “${it[4]}”`};
-    const wrap=document.createElement('div');wrap.style.borderBottom='1px solid var(--line)';wrap.appendChild(b);cal.appendChild(wrap);
-    if(!firstCell)firstCell=b;});
-});
-firstCell.click();
 
 go(0);
 </script>

@@ -6,7 +6,7 @@ Estrategia de contenido para redes sociales de Santa Juana, una marca de ropa de
 
 | Archivo | Qué es |
 |---|---|
-| `presentacion-estrategia-santa-juana.html` | Presentación interactiva de 10 diapositivas. Ábrela con doble clic en el navegador y navega con las flechas del teclado. |
+| `presentacion-estrategia-santa-juana.html` | Presentación interactiva de 9 diapositivas. Ábrela con doble clic en el navegador y navega con las flechas del teclado. |
 | `estrategia-contenido-santa-juana.docx` | Documento completo en Word: tendencias, cuentas de referencia, dolores, motivaciones, 20 ideas, ajustes y guiones. |
 | `ideas-contenido-santa-juana.xlsx` | Tablero en Excel con las 20 ideas, el calendario de 4 semanas, el seguimiento de métricas, un resumen y la hoja Referencias con los 20 videos. |
 | `estrategia-contenido-santa-juana.md` | La misma estrategia en texto plano. |
@@ -18,4 +18,5 @@ Estrategia de contenido para redes sociales de Santa Juana, una marca de ropa de
 - Precio al detal, precio por mayor y mínimo de compra.
 - Tabla de medidas de la S a la XL.
 - Verificar las cuentas de referencia marcadas con 🔎.
+
 
