@@ -194,7 +194,7 @@ h2 em{font-style:italic;color:var(--gold)}
 .kpi h4{font-family:var(--serif);font-weight:400;font-size:30px;margin:12px 0 6px}
 .kpi p{color:rgba(245,240,232,.7);font-size:16px;line-height:1.5}
 .kpi .mix{font-family:var(--serif);font-size:64px;color:var(--gold);line-height:1;margin-top:18px}
-.next{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:40px}
+.next{display:grid;grid-template-columns:1fr;gap:60px;margin-top:56px;max-width:1000px}
 .checks{list-style:none;margin-top:14px}
 .checks li{display:flex;gap:16px;align-items:center;padding:13px 0;border-bottom:1px solid rgba(245,240,232,.14);cursor:pointer;font-size:18px;transition:.2s}
 .checks li:hover{color:var(--gold)}
@@ -379,12 +379,6 @@ h2 em{font-style:italic;color:var(--gold)}
   </div>
   <div class="next">
     <div>
-      <div class="eyebrow">Para arrancar · marca lo que ya está listo</div>
-      <ul class="checks" id="checks"></ul>
-      <div class="prog"><div id="prog"></div></div>
-      <div class="progtxt" id="progtxt"></div>
-    </div>
-    <div>
       <div class="eyebrow">Criterio de decisión</div>
       <p class="sub" style="font-size:19px;margin-top:14px">Duplicar lo que supere la mediana de la cuenta en retención y guardados. Subir el peso del nivel 3 a medida que crezca la audiencia.</p>
       <p class="disc">Las tendencias y los dolores son hipótesis basadas en fuentes públicas y criterio estratégico. Se validan con comentarios, mensajes y métricas reales durante el primer ciclo.</p>
@@ -542,14 +536,6 @@ let firstCell=null;
     if(!firstCell)firstCell=b;});
 });
 firstCell.click();
-
-/* ---------- 10 Checklist ---------- */
-const checks=['Precios definidos: detal, mayor y mínimo de compra','Tabla de medidas S a XL','Modelos talla L y XL confirmadas','Permisos de uso de imagen firmados','Creadoras UGC seleccionadas'];
-const ce=document.getElementById('checks');
-function prog(){const n=ce.querySelectorAll('.on').length;document.getElementById('prog').style.width=(n/checks.length*100)+'%';
-  document.getElementById('progtxt').textContent=n===checks.length?'Listo para iniciar la producción.':`${n} de ${checks.length} listos`}
-checks.forEach(t=>{const li=document.createElement('li');li.innerHTML=`<i class="box"></i><span>${t}</span>`;li.onclick=()=>{li.classList.toggle('on');prog()};ce.appendChild(li)});
-prog();
 
 go(0);
 </script>
