@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Santa Juana · Estrategia de contenido 2026</title>
+<style>
+:root{
+  --ink:#122220; --ink2:#1B302D; --ivory:#F5F0E8; --paper:#FBF8F3; --sand:#E6DCCB; --line:#D8CDBB;
+  --gold:#B48A4E; --coral:#C4553C; --sage:#6F9682; --muted:#6E7A76; --text:#1C2725;
+  --n1:#6F9682; --n2:#C59A55; --n3:#C4553C;
+  --serif: "Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --sans: "Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#0B1514;overflow:hidden;font-family:var(--sans);color:var(--text);-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+/* Stage 16:9 escalado */
+.viewport{position:fixed;inset:0}
+.stage{width:1600px;height:900px;position:absolute;left:50%;top:50%;transform-origin:center center;overflow:hidden;border-radius:4px;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.slide{position:absolute;inset:0;background:var(--ivory);padding:88px 110px 96px;opacity:0;visibility:hidden;transition:opacity .6s ease,visibility .6s}
+.slide.active{opacity:1;visibility:visible}
+.slide.dark{background:radial-gradient(1200px 700px at 85% 20%,#24403C 0%,var(--ink) 60%);color:var(--ivory)}
+.slide > *{transition:transform .8s cubic-bezier(.2,.7,.2,1),opacity .8s ease}
+.slide:not(.active) > *{transform:translateY(18px);opacity:0}
+
+/* Encabezado */
+.kicker{position:absolute;top:44px;left:110px;right:110px;display:flex;justify-content:space-between;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.dark .kicker{color:rgba(245,240,232,.55)}
+.kicker b{color:var(--gold);font-weight:600}
+h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-.01em}
+h2{font-size:60px;line-height:1.04;margin-top:26px}
+h2 em{font-style:italic;color:var(--gold)}
+.sub{font-size:21px;line-height:1.5;color:var(--muted);max-width:820px;margin-top:16px}
+.dark .sub{color:rgba(245,240,232,.72)}
+.rule{height:1px;background:var(--line)}
+.dark .rule{background:rgba(245,240,232,.16)}
+.eyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.dark .eyebrow{color:rgba(245,240,232,.5)}
+.num{font-family:var(--serif);font-style:italic;color:var(--gold)}
+.lv{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:8px;vertical-align:1px}
+.lv.n1{background:var(--n1)}.lv.n2{background:var(--n2)}.lv.n3{background:var(--n3)}
+
+/* 1 · Portada */
+.cover h1{font-size:132px;line-height:.95;margin-top:120px;max-width:1000px}
+.cover h1 em{color:var(--gold)}
+.cover .tagline{font-family:var(--serif);font-style:italic;font-size:34px;color:rgba(245,240,232,.8);margin-top:28px}
+.cover .meta{position:absolute;left:110px;right:110px;bottom:84px;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(245,240,232,.18);padding-top:22px}
+.cover .meta div{font-size:15px;color:rgba(245,240,232,.62);line-height:1.5}
+.cover .meta b{display:block;font-family:var(--serif);font-weight:400;font-size:26px;color:var(--ivory)}
+.mono{position:absolute;right:70px;top:110px;width:560px;height:560px;opacity:.9}
+
+/* 2 · Marca */
+.brand{display:grid;grid-template-columns:1.15fr 1fr;gap:90px;margin-top:40px;align-items:start}
+.quote{font-family:var(--serif);font-size:54px;line-height:1.15}
+.quote em{color:var(--coral)}
+.quote small{display:block;font-family:var(--sans);font-size:15px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:30px}
+.facts{display:flex;flex-direction:column}
+.fact{display:grid;grid-template-columns:70px 1fr;padding:24px 0;border-top:1px solid var(--line)}
+.fact:last-child{border-bottom:1px solid var(--line)}
+.fact .num{font-size:30px}
+.fact h4{font-family:var(--serif);font-weight:400;font-size:28px}
+.fact p{color:var(--muted);font-size:17px;line-height:1.5;margin-top:4px}
+
+/* tabs genéricos */
+.tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);margin-top:34px}
+.tab{padding:14px 22px;font-size:16px;letter-spacing:.04em;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px;transition:.25s}
+.tab:hover{color:var(--text)}
+.tab.on{color:var(--text);border-color:var(--coral)}
+
+/* 3 · Insight */
+.insight{display:grid;grid-template-columns:1fr 520px;gap:60px;margin-top:6px}
+.pains{list-style:none}
+.pain{display:grid;grid-template-columns:56px 1fr 24px;align-items:center;padding:27px 4px;border-bottom:1px solid var(--line);cursor:pointer;transition:background .25s,padding .25s}
+.pain:hover{background:rgba(180,138,78,.07)}
+.pain.on{background:var(--paper);padding-left:16px}
+.pain .num{font-size:24px}
+.pain span{font-size:21px}
+.pain i{font-style:normal;color:var(--muted);transition:.25s}
+.pain.on i{color:var(--coral);transform:translateX(4px)}
+.answer{background:var(--ink);color:var(--ivory);border-radius:2px;padding:44px 44px;margin-top:22px;min-height:470px;position:relative}
+.answer .eyebrow{color:var(--gold)}
+.answer h3{font-size:34px;line-height:1.2;margin:18px 0 18px}
+.answer p{font-size:18px;line-height:1.6;color:rgba(245,240,232,.78)}
+.answer .idea{position:absolute;left:44px;right:44px;bottom:36px;padding-top:18px;border-top:1px solid rgba(245,240,232,.16);font-size:15px;color:rgba(245,240,232,.62)}
+.answer .idea b{color:var(--ivory);font-weight:600}
+
+/* 4 · Motivaciones */
+.drivers{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:44px;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.drv{padding:30px 28px 34px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-height:205px;transition:background .3s,color .3s;position:relative}
+.drv:hover{background:var(--ink);color:var(--ivory)}
+.drv:hover p{color:rgba(245,240,232,.75)}
+.drv .eyebrow{font-size:11px}
+.drv:hover .eyebrow{color:var(--gold)}
+.drv h4{font-family:var(--serif);font-weight:400;font-size:28px;margin:14px 0 10px}
+.drv p{font-size:16px;line-height:1.5;color:var(--muted)}
+.closing{margin-top:34px;font-family:var(--serif);font-size:28px;font-style:italic}
+.closing span{color:var(--coral)}
+
+/* 5 · Marco */
+.frame{display:grid;grid-template-columns:600px 1fr;gap:70px;margin-top:40px;align-items:center}
+.funnel path{cursor:pointer;transition:opacity .3s,transform .3s}
+.funnel g{cursor:pointer}
+.funnel g:not(.on) path{opacity:.28}
+.funnel text{pointer-events:none;font-family:var(--sans)}
+.fpanel .eyebrow{color:var(--gold)}
+.fpanel h3{font-size:46px;margin:14px 0 8px}
+.fpanel .lead{font-size:20px;line-height:1.5;color:rgba(245,240,232,.75)}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:26px 40px;margin-top:34px}
+.fgrid div{border-top:1px solid rgba(245,240,232,.16);padding-top:14px}
+.fgrid p{font-size:18px;line-height:1.5;margin-top:6px;color:var(--ivory)}
+.fgrid .ex{font-family:var(--serif);font-style:italic;font-size:22px}
+
+/* 6 · Portafolio */
+.port{display:grid;grid-template-columns:1fr 400px;gap:44px;margin-top:22px}
+.chips{display:flex;gap:10px;margin-top:26px}
+.chip{border:1px solid var(--line);border-radius:999px;padding:9px 18px;font-size:14px;color:var(--muted);transition:.25s}
+.chip:hover{border-color:var(--text);color:var(--text)}
+.chip.on{background:var(--ink);border-color:var(--ink);color:var(--ivory)}
+.cards{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:22px}
+.ic{background:var(--paper);border:1px solid var(--line);padding:14px 14px 16px;height:118px;text-align:left;display:flex;flex-direction:column;justify-content:space-between;transition:all .3s;position:relative}
+.ic:hover{border-color:var(--text);transform:translateY(-2px)}
+.ic.on{background:var(--ink);color:var(--ivory);border-color:var(--ink)}
+.ic.dim{opacity:.18;pointer-events:none}
+.ic .top{display:flex;justify-content:space-between;align-items:center}
+.ic .top .num{font-size:20px}
+.ic h5{font-family:var(--serif);font-weight:400;font-size:17px;line-height:1.2}
+.detail{background:var(--ink);color:var(--ivory);padding:36px 34px;margin-top:26px;height:524px;display:flex;flex-direction:column}
+.detail .eyebrow{color:var(--gold)}
+.detail h3{font-size:32px;line-height:1.15;margin:12px 0 20px}
+.detail .hook{font-family:var(--serif);font-style:italic;font-size:21px;line-height:1.4;color:var(--ivory);padding-left:18px;border-left:2px solid var(--coral)}
+.detail dl{display:grid;grid-template-columns:110px 1fr;gap:12px 14px;margin-top:auto;font-size:15px}
+.detail dt{color:rgba(245,240,232,.5);letter-spacing:.06em}
+.detail dd{color:var(--ivory)}
+
+/* 7 · Global → Local */
+.gl{display:grid;grid-template-columns:420px 1fr;gap:60px;margin-top:40px}
+.tl{list-style:none;border-top:1px solid var(--line)}
+.tl li{padding:17px 6px;border-bottom:1px solid var(--line);font-size:19px;cursor:pointer;display:flex;justify-content:space-between;transition:.25s}
+.tl li small{font-size:12px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;align-self:center}
+.tl li:hover{padding-left:12px}
+.tl li.on{color:var(--coral);padding-left:12px}
+.swap{display:grid;grid-template-columns:1fr 80px 1fr;align-items:stretch;height:420px}
+.side{padding:40px 38px;display:flex;flex-direction:column}
+.side.a{background:var(--paper);border:1px solid var(--line)}
+.side.b{background:var(--ink);color:var(--ivory)}
+.side.b .eyebrow{color:var(--gold)}
+.side h3{font-size:36px;line-height:1.15;margin:16px 0 16px}
+.side p{font-size:18px;line-height:1.55;color:var(--muted)}
+.side.b p{color:rgba(245,240,232,.78)}
+.side .src{margin-top:auto;font-size:13px;color:var(--muted);letter-spacing:.04em}
+.arrow{display:grid;place-items:center;font-family:var(--serif);font-size:44px;color:var(--gold)}
+.rulebox{margin-top:30px;display:flex;gap:40px;font-size:17px;color:var(--muted)}
+.rulebox b{color:var(--text);font-weight:600}
+
+/* 8 · Audiencias */
+.ratio{display:flex;height:10px;margin-top:40px}
+.ratio div:first-child{flex:70;background:var(--coral)}
+.ratio div:last-child{flex:30;background:var(--ink)}
+.ratio-l{display:flex;justify-content:space-between;margin-top:10px;font-size:14px;color:var(--muted);letter-spacing:.06em}
+.aud{display:grid;grid-template-columns:70fr 30fr;gap:24px;margin-top:28px}
+.ac{padding:36px 38px;border:1px solid var(--line);background:var(--paper)}
+.ac.b{background:var(--ink);color:var(--ivory);border-color:var(--ink)}
+.ac h3{font-size:38px}
+.ac .pct{font-family:var(--serif);font-style:italic;font-size:22px;color:var(--coral);margin-left:10px}
+.ac.b .pct{color:var(--gold)}
+.ac dl{display:grid;grid-template-columns:150px 1fr;gap:14px 18px;margin-top:24px;font-size:17px;line-height:1.45}
+.ac.b dl{grid-template-columns:1fr}
+.ac dt{color:var(--muted);font-size:13px;letter-spacing:.14em;text-transform:uppercase;padding-top:3px}
+.ac.b dt{color:rgba(245,240,232,.5)}
+.kw{display:inline-block;border:1px solid currentColor;padding:2px 12px;border-radius:999px;font-size:14px;letter-spacing:.12em;font-weight:600}
+.prod{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:26px}
+.prod div{border-top:1px solid var(--line);padding-top:14px;font-size:16px;color:var(--muted);line-height:1.5}
+.prod b{display:block;color:var(--text);font-family:var(--serif);font-weight:400;font-size:22px;margin-bottom:4px}
+
+/* 9 · Calendario */
+.cal{display:grid;grid-template-columns:130px repeat(5,1fr);margin-top:38px;border-top:1px solid var(--line)}
+.cal .h{padding:14px 12px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line)}
+.cal .w{padding:18px 12px;font-family:var(--serif);font-size:22px;border-bottom:1px solid var(--line);display:flex;align-items:center}
+.cell{margin:6px;padding:12px 14px;min-height:82px;text-align:left;background:var(--paper);border:1px solid var(--line);border-left:4px solid;transition:.25s;display:flex;flex-direction:column;justify-content:space-between}
+.cell:hover{transform:translateY(-2px);border-color:var(--text)}
+.cell.on{background:var(--ink);color:var(--ivory)}
+.cell .num{font-size:15px}
+.cell span{font-size:15px;line-height:1.25}
+.cal-detail{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding:18px 24px;background:var(--ink);color:var(--ivory);font-size:17px}
+.cal-detail em{font-family:var(--serif);color:var(--gold);font-size:21px}
+.legend{display:flex;gap:26px;font-size:14px;color:rgba(245,240,232,.75)}
+
+/* 10 · Medición */
+.kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:38px;border-top:1px solid rgba(245,240,232,.16)}
+.kpi > div{padding:28px 30px 30px 0;border-right:1px solid rgba(245,240,232,.16);margin-right:30px}
+.kpi > div:last-child{border:0;margin:0}
+.kpi h4{font-family:var(--serif);font-weight:400;font-size:30px;margin:12px 0 6px}
+.kpi p{color:rgba(245,240,232,.7);font-size:16px;line-height:1.5}
+.kpi .mix{font-family:var(--serif);font-size:64px;color:var(--gold);line-height:1;margin-top:18px}
+.next{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:40px}
+.checks{list-style:none;margin-top:14px}
+.checks li{display:flex;gap:16px;align-items:center;padding:13px 0;border-bottom:1px solid rgba(245,240,232,.14);cursor:pointer;font-size:18px;transition:.2s}
+.checks li:hover{color:var(--gold)}
+.box{width:22px;height:22px;border:1px solid rgba(245,240,232,.5);display:grid;place-items:center;flex:none;transition:.2s}
+.checks li.on .box{background:var(--gold);border-color:var(--gold)}
+.checks li.on .box::after{content:"";width:6px;height:11px;border:solid var(--ink);border-width:0 2px 2px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.checks li.on span{text-decoration:line-through;color:rgba(245,240,232,.45)}
+.prog{height:3px;background:rgba(245,240,232,.14);margin-top:20px}
+.prog div{height:100%;background:var(--gold);transition:width .5s}
+.progtxt{font-size:14px;color:rgba(245,240,232,.6);margin-top:10px;letter-spacing:.04em}
+.disc{font-size:15px;line-height:1.6;color:rgba(245,240,232,.6);border-left:2px solid var(--gold);padding-left:18px;margin-top:14px}
+
+/* Navegación */
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:rgba(255,255,255,.08);z-index:20}
+.topbar div{height:100%;background:var(--gold);transition:width .5s ease}
+.nav{position:fixed;right:28px;bottom:24px;display:flex;align-items:center;gap:14px;z-index:20;color:rgba(245,240,232,.75);font-size:13px;letter-spacing:.16em}
+.nav button{width:44px;height:44px;border-radius:50%;border:1px solid rgba(245,240,232,.25);color:var(--ivory);font-size:18px;transition:.25s;background:rgba(18,34,32,.6);backdrop-filter:blur(6px)}
+.nav button:hover:not(:disabled){background:var(--gold);border-color:var(--gold);color:var(--ink)}
+.nav button:disabled{opacity:.25;cursor:default}
+.helper{position:fixed;left:28px;bottom:34px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,240,232,.4);z-index:20}
+</style>
+</head>
+<body>
+<div class="topbar"><div id="bar"></div></div>
+<div class="viewport"><div class="stage" id="stage">
+
+<!-- 01 PORTADA -->
+<section class="slide dark cover active" data-title="Portada">
+  <div class="kicker"><span><b>Santa Juana</b> · Activewear</span><span>Estrategia de contenido · 2026</span></div>
+  <svg class="mono" viewBox="0 0 560 560" aria-hidden="true">
+    <defs><linearGradient id="g1" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#B48A4E" stop-opacity=".9"/><stop offset="1" stop-color="#C4553C" stop-opacity=".5"/></linearGradient></defs>
+    <circle cx="280" cy="280" r="270" fill="none" stroke="rgba(245,240,232,.10)"/>
+    <circle cx="280" cy="280" r="205" fill="none" stroke="rgba(245,240,232,.08)"/>
+    <circle cx="280" cy="280" r="140" fill="none" stroke="rgba(245,240,232,.06)"/>
+    <path d="M280 10 A270 270 0 0 1 545 330" fill="none" stroke="url(#g1)" stroke-width="2"/>
+    <path d="M280 75 A205 205 0 0 0 95 370" fill="none" stroke="#6F9682" stroke-opacity=".7" stroke-width="2"/>
+    <text x="280" y="318" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="120" fill="rgba(245,240,232,.9)">SJ</text>
+  </svg>
+  <h1>Estrategia de <em>contenido</em></h1>
+  <p class="tagline">Belleza, autoestima y movimiento.</p>
+  <div class="meta">
+    <div><b>Colombia</b>Mercado inicial</div>
+    <div><b>S — XL</b>Rango de tallas</div>
+    <div><b>20 piezas</b>Portafolio de contenido</div>
+    <div><b>4 semanas</b>Primer ciclo de publicación</div>
+  </div>
+</section>
+
+<!-- 02 MARCA -->
+<section class="slide" data-title="La marca">
+  <div class="kicker"><span><b>01</b> · La marca</span><span>Santa Juana</span></div>
+  <h2>Una marca que <em>fabrica</em>,<br>no que revende.</h2>
+  <div class="brand">
+    <div class="quote">“Ropa que te hace sentir <em>bonita y segura</em> mientras te mueves.”<small>Posicionamiento</small></div>
+    <div class="facts">
+      <div class="fact"><span class="num">01</span><div><h4>Producción propia</h4><p>Fábrica en Guarne, Antioquia. Control total de tela, corte y costura.</p></div></div>
+      <div class="fact"><span class="num">02</span><div><h4>Tallas S a XL</h4><p>Un rango que permite mostrar cuerpos reales y distintos.</p></div></div>
+      <div class="fact"><span class="num">03</span><div><h4>Detal y por mayor</h4><p>Dos negocios en una misma cuenta: clienta final y revendedora.</p></div></div>
+      <div class="fact"><span class="num">04</span><div><h4>Historia auténtica</h4><p>El origen de fábrica es nuestro diferencial más difícil de copiar.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 INSIGHT -->
+<section class="slide" data-title="Insight">
+  <div class="kicker"><span><b>02</b> · El insight</span><span>Psicología del consumidor</span></div>
+  <h2>Lo que ella vive <em>antes</em> de comprar.</h2>
+  <div class="insight">
+    <div>
+      <div class="tabs" id="painTabs"></div>
+      <ul class="pains" id="pains"></ul>
+    </div>
+    <div class="answer" id="answer"></div>
+  </div>
+</section>
+
+<!-- 04 MOTIVACIONES -->
+<section class="slide" data-title="Motivaciones">
+  <div class="kicker"><span><b>03</b> · Motivaciones</span><span>Por qué elige lo que elige</span></div>
+  <h2>El producto es funcional.<br>La decisión es <em>emocional</em>.</h2>
+  <div class="drivers">
+    <div class="drv"><div class="eyebrow">Funcional</div><h4>Seguridad</h4><p>Que no transparente, no se baje y no marque lo que incomoda.</p></div>
+    <div class="drv"><div class="eyebrow">Funcional</div><h4>Comodidad real</h4><p>Una prenda que sirve para entrenar y para el resto del día.</p></div>
+    <div class="drv"><div class="eyebrow">Emocional</div><h4>Verse bien</h4><p>Realzar cintura y postura sin sentirse disfrazada.</p></div>
+    <div class="drv"><div class="eyebrow">Emocional</div><h4>Identidad</h4><p>“Soy una mujer que se cuida.” El outfit como ritual de motivación.</p></div>
+    <div class="drv"><div class="eyebrow">Social</div><h4>Validación</h4><p>Fotos, comentarios y la pregunta “¿de dónde es?”.</p></div>
+    <div class="drv"><div class="eyebrow">Racional</div><h4>Confianza</h4><p>Tela, costuras, reseñas reales y una marca con rostro y origen.</p></div>
+    <div class="drv"><div class="eyebrow">Racional</div><h4>Valor</h4><p>Precio justo por durabilidad; margen atractivo para revender.</p></div>
+    <div class="drv"><div class="eyebrow">Social</div><h4>Orgullo local</h4><p>Preferencia por lo hecho en Colombia.</p></div>
+  </div>
+  <p class="closing">No vendemos ropa deportiva. Vendemos <span>cómo se siente</span> usarla.</p>
+</section>
+
+<!-- 05 MARCO -->
+<section class="slide dark" data-title="Marco">
+  <div class="kicker"><span><b>04</b> · El marco</span><span>Niveles de conciencia · E. Schwartz</span></div>
+  <h2>Un mensaje distinto para cada <em>nivel de conciencia</em>.</h2>
+  <div class="frame">
+    <svg class="funnel" viewBox="0 0 600 420" id="funnel">
+      <g data-i="0"><path d="M20 10 H580 L520 140 H80 Z" fill="#6F9682"/><text x="300" y="70" text-anchor="middle" fill="#F5F0E8" font-size="15" letter-spacing="3">NIVEL 1</text><text x="300" y="100" text-anchor="middle" fill="#F5F0E8" font-size="22" font-family="Georgia,serif">Inconsciente · 7 piezas</text></g>
+      <g data-i="1"><path d="M86 150 H514 L454 280 H146 Z" fill="#C59A55"/><text x="300" y="210" text-anchor="middle" fill="#122220" font-size="15" letter-spacing="3">NIVEL 2</text><text x="300" y="240" text-anchor="middle" fill="#122220" font-size="22" font-family="Georgia,serif">Problema · 7 piezas</text></g>
+      <g data-i="2"><path d="M152 290 H448 L388 410 H212 Z" fill="#C4553C"/><text x="300" y="345" text-anchor="middle" fill="#F5F0E8" font-size="15" letter-spacing="3">NIVEL 3</text><text x="300" y="375" text-anchor="middle" fill="#F5F0E8" font-size="22" font-family="Georgia,serif">Solución · 6 piezas</text></g>
+    </svg>
+    <div class="fpanel" id="fpanel"></div>
+  </div>
+</section>
+
+<!-- 06 PORTAFOLIO -->
+<section class="slide" data-title="Portafolio">
+  <div class="kicker"><span><b>05</b> · Portafolio</span><span>20 piezas · un sistema</span></div>
+  <h2>Veinte ideas, <em>un solo sistema</em>.</h2>
+  <div class="port">
+    <div>
+      <div class="chips" id="chips"></div>
+      <div class="cards" id="cards"></div>
+    </div>
+    <div class="detail" id="detail"></div>
+  </div>
+</section>
+
+<!-- 07 GLOBAL LOCAL -->
+<section class="slide" data-title="Tendencias">
+  <div class="kicker"><span><b>06</b> · Tendencias</span><span>Global → Local</span></div>
+  <h2>Lo que funciona afuera, <em>traducido</em> a Colombia.</h2>
+  <div class="gl">
+    <ul class="tl" id="trends"></ul>
+    <div>
+      <div class="swap" id="swap"></div>
+      <div class="rulebox"><span><b>Se conserva:</b> formato, ritmo y gancho.</span><span><b>Se cambia:</b> lugar, lenguaje y dolor local.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 AUDIENCIAS -->
+<section class="slide" data-title="Audiencias">
+  <div class="kicker"><span><b>07</b> · Audiencias</span><span>Dos carriles, una cuenta</span></div>
+  <h2>Dos clientas, <em>dos conversaciones</em>.</h2>
+  <div class="ratio"><div></div><div></div></div>
+  <div class="ratio-l"><span>70% del contenido · Belleza y autoestima</span><span>30% · Negocio</span></div>
+  <div class="aud">
+    <div class="ac">
+      <h3>La clienta final<span class="pct">70%</span></h3>
+      <dl>
+        <dt>Busca</dt><dd>Verse y sentirse bien, con comodidad y seguridad.</dd>
+        <dt>Mensaje</dt><dd>Te ves y te sientes bien mientras te mueves.</dd>
+        <dt>Contenido</dt><dd>Probadores reales, pruebas de tela, autocuidado y reseñas.</dd>
+        <dt>Conversión</dt><dd>WhatsApp con la palabra <span class="kw">TALLA</span></dd>
+      </dl>
+    </div>
+    <div class="ac b">
+      <h3>La revendedora<span class="pct">30%</span></h3>
+      <dl>
+        <dt>Busca</dt><dd>Un proveedor confiable y con margen.</dd>
+        <dt>Mensaje</dt><dd>Compra directo de fábrica.</dd>
+        <dt>Conversión</dt><dd>WhatsApp con <span class="kw">MAYOR</span></dd>
+      </dl>
+    </div>
+  </div>
+  <div class="prod">
+    <div><b>Modelos de la marca</b>Piezas de imagen y outfit: ideas 2, 3, 4, 7, 8, 11 y 19.</div>
+    <div><b>Creadoras UGC locales</b>Micro perfiles de 5K a 50K en Antioquia: ideas 10, 12, 15 y 17.</div>
+    <div><b>Clientas reales</b>Reseñas y prueba social con incentivo mensual.</div>
+  </div>
+</section>
+
+<!-- 09 CALENDARIO -->
+<section class="slide" data-title="Calendario">
+  <div class="kicker"><span><b>08</b> · Calendario</span><span>Primer ciclo · 4 semanas · 5 piezas por semana</span></div>
+  <h2>Un ritmo que <em>sostiene</em> la conversación.</h2>
+  <div class="cal" id="cal"></div>
+  <div class="cal-detail"><div id="calTxt"></div><div class="legend"><span><i class="lv n1"></i>Inconsciente</span><span><i class="lv n2"></i>Problema</span><span><i class="lv n3"></i>Solución</span></div></div>
+</section>
+
+<!-- 10 MEDICIÓN -->
+<section class="slide dark" data-title="Medición">
+  <div class="kicker"><span><b>09</b> · Medición y siguientes pasos</span><span>Santa Juana</span></div>
+  <h2>Cómo sabremos que <em>funciona</em>.</h2>
+  <div class="kpi">
+    <div><span class="eyebrow"><i class="lv n1"></i>Nivel 1</span><h4>Alcance</h4><p>Vistas, retención a 3 s y compartidos.</p><div class="mix">40%</div></div>
+    <div><span class="eyebrow"><i class="lv n2"></i>Nivel 2</span><h4>Conexión</h4><p>Guardados y comentarios que nombran el dolor.</p><div class="mix">35%</div></div>
+    <div><span class="eyebrow"><i class="lv n3"></i>Nivel 3</span><h4>Conversión</h4><p>Mensajes TALLA y MAYOR, y ventas atribuidas.</p><div class="mix">25%</div></div>
+  </div>
+  <div class="next">
+    <div>
+      <div class="eyebrow">Para arrancar · marca lo que ya está listo</div>
+      <ul class="checks" id="checks"></ul>
+      <div class="prog"><div id="prog"></div></div>
+      <div class="progtxt" id="progtxt"></div>
+    </div>
+    <div>
+      <div class="eyebrow">Criterio de decisión</div>
+      <p class="sub" style="font-size:19px;margin-top:14px">Duplicar lo que supere la mediana de la cuenta en retención y guardados. Subir el peso del nivel 3 a medida que crezca la audiencia.</p>
+      <p class="disc">Las tendencias y los dolores son hipótesis basadas en fuentes públicas y criterio estratégico. Se validan con comentarios, mensajes y métricas reales durante el primer ciclo.</p>
+    </div>
+  </div>
+</section>
+
+</div></div>
+
+<div class="helper">← → para navegar · clic para explorar</div>
+<div class="nav"><button id="prev" aria-label="Anterior">←</button><span id="count">01 / 10</span><button id="next" aria-label="Siguiente">→</button></div>
+
+<script>
+/* ---------- Escalado ---------- */
+const stage=document.getElementById('stage');
+function fit(){const s=Math.min(innerWidth/1600,innerHeight/900);stage.style.transform=`translate(-50%,-50%) scale(${s})`}
+addEventListener('resize',fit);fit();
+
+/* ---------- Navegación ---------- */
+const slides=[...document.querySelectorAll('.slide')];let cur=0;
+const pad=n=>String(n).padStart(2,'0');
+function go(n){
+  cur=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach((s,i)=>s.classList.toggle('active',i===cur));
+  document.getElementById('count').textContent=pad(cur+1)+' / '+pad(slides.length);
+  document.getElementById('bar').style.width=((cur+1)/slides.length*100)+'%';
+  document.getElementById('prev').disabled=cur===0;
+  document.getElementById('next').disabled=cur===slides.length-1;
+}
+document.getElementById('prev').onclick=()=>go(cur-1);
+document.getElementById('next').onclick=()=>go(cur+1);
+addEventListener('keydown',e=>{
+  if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();go(cur+1)}
+  if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();go(cur-1)}
+  if(e.key==='Home')go(0); if(e.key==='End')go(slides.length-1);
+});
+function single(list,el){[...list.children].forEach(c=>c.classList.remove('on'));el.classList.add('on')}
+
+/* ---------- 03 Insight ---------- */
+const pains={
+ 'Día a día':[
+  ['Falta de tiempo y carga mental','Trabajo, casa y familia primero; ella al final.','Formatos cortos y rutinas de 20 minutos. El mensaje: hoy es tu turno.','Idea 5 · Mujer de 8 a 8'],
+  ['Comparación en redes','La sensación de “nunca estoy suficiente”.','Cuerpos reales, sin filtros ni retoques, en todas las piezas.','Idea 11 · Tres mujeres, tres tallas'],
+  ['Presión estética','Inseguridad constante con el propio cuerpo.','Hablar de sentirse bien, no de “corregir” el cuerpo.','Idea 7 · De cansada a poderosa'],
+  ['Cansancio crónico','Sin energía para cuidarse.','Contenido de autocuidado y movimiento amable.','Idea 3 · Cozy cardio'],
+  ['Culpa por gastar en sí misma','Prioriza siempre el gasto de otros.','Mostrar el costo por uso: una prenda buena rinde más.','Idea 14 · El gasto que vale']],
+ 'Ejercicio':[
+  ['Miedo al juicio en el gimnasio','“Siento que todos me miran.”','Normalizar con humor; prendas que dan seguridad al moverse.','Idea 10 · Lo que pensamos vs. lo que pasa'],
+  ['No saber por dónde empezar','La barrera de entrada parece alta.','Rutinas simples y accesibles, con el outfit como protagonista.','Idea 3 · Cozy cardio'],
+  ['Inconstancia','Empieza el lunes y abandona el jueves.','El outfit como ritual que motiva a salir.','Idea 2 · GRWM para entrenar'],
+  ['Ropa incómoda','Se mueve, aprieta, se rueda o se baja.','Pruebas de movimiento reales frente a cámara.','Idea 15 · Prueba de estrés de la tela'],
+  ['Resultados lentos','La báscula desmotiva.','Medir energía, postura y bienestar, no solo peso.','Idea 13 · Carta a la mujer que dejó de cuidarse']],
+ 'Vestimenta':[
+  ['Tallas inconsistentes','M en una marca, L en otra.','Guía de tallas S a XL y asesoría personal por WhatsApp.','Idea 9 · Por qué eres M y L'],
+  ['Transparencia','El dolor número uno en leggings.','La prueba de la sentadilla, con luz frontal y sin trucos.','Idea 8 · Test de la sentadilla'],
+  ['“No me quedará como en la foto”','Miedo a comprar online.','Probador real con tres tallas y tres cuerpos.','Idea 11 · Tres mujeres, tres tallas'],
+  ['Precio contra durabilidad','Se desgasta, se decolora, hace pilling.','Demostrar calidad de tela y enseñar a cuidarla.','Idea 12 · Barata vs. buena'],
+  ['No sentirse bonita','Ropa “cómoda” que no la representa.','Color, corte y estilo: activewear con personalidad.','Idea 4 · Funkification a la colombiana']]
+};
+const pT=document.getElementById('painTabs'),pL=document.getElementById('pains'),ans=document.getElementById('answer');
+function showPain(cat,i,li){
+  const [t,d,r,id]=pains[cat][i];single(pL,li);
+  ans.innerHTML=`<div class="eyebrow">Respuesta de marca</div><h3>${r}</h3><p>${t}: ${d}</p><div class="idea">Pieza asociada · <b>${id}</b></div>`;
+}
+Object.keys(pains).forEach((cat,ci)=>{
+  const b=document.createElement('button');b.className='tab';b.textContent=cat;
+  b.onclick=()=>{single(pT,b);pL.innerHTML='';
+    pains[cat].forEach(([t],i)=>{const li=document.createElement('li');li.className='pain';
+      li.innerHTML=`<span class="num">${pad(i+1)}</span><span>${t}</span><i>→</i>`;
+      li.onclick=()=>showPain(cat,i,li);pL.appendChild(li)});
+    showPain(cat,0,pL.children[0]);};
+  pT.appendChild(b);if(ci===0)b.click();
+});
+
+/* ---------- 05 Marco ---------- */
+const levels=[
+ {e:'Nivel 1 · Inconsciente',h:'Que se reconozca.',l:'Todavía no piensa en su ropa deportiva. El objetivo es que se identifique y recuerde la marca.',t:'Humor, emoción, cotidianidad',f:'POV, GRWM, detrás de cámaras',x:'“POV: llevas diez minutos frente al espejo.”',k:'Alcance y compartidos'},
+ {e:'Nivel 2 · Consciente del problema',h:'Que se sienta entendida.',l:'Ya sabe qué le molesta. Le ponemos nombre al dolor y validamos lo que siente.',t:'Empático y educativo',f:'Tests, explicativos, storytime',x:'“¿Tu leggin pasa el test de la sentadilla?”',k:'Guardados y comentarios'},
+ {e:'Nivel 3 · Consciente de la solución',h:'Que nos elija.',l:'Busca una opción. Demostramos por qué Santa Juana resuelve mejor su necesidad.',t:'Seguro y demostrativo',f:'Prueba de producto, UGC, tutorial',x:'“Le hice de todo a este leggin.”',k:'Mensajes a WhatsApp'}
+];
+const fg=[...document.querySelectorAll('#funnel g')],fp=document.getElementById('fpanel');
+function lvl(i){fg.forEach((g,j)=>g.classList.toggle('on',j===i));const v=levels[i];
+  fp.innerHTML=`<div class="eyebrow">${v.e}</div><h3>${v.h}</h3><p class="lead">${v.l}</p>
+  <div class="fgrid"><div><span class="eyebrow">Tono</span><p>${v.t}</p></div><div><span class="eyebrow">Formatos</span><p>${v.f}</p></div>
+  <div><span class="eyebrow">Ejemplo</span><p class="ex">${v.x}</p></div><div><span class="eyebrow">Métrica principal</span><p>${v.k}</p></div></div>`}
+fg.forEach((g,i)=>g.onclick=()=>lvl(i));lvl(0);
+
+/* ---------- 06 Portafolio ---------- */
+const ideas=[
+ [1,1,'A','Leggin nuevo y el espejo','POV: te pusiste el leggin nuevo y llevas 10 min frente al espejo','Comedia POV · 15 s','Modelo propia','Compartir y etiquetar',1,'Lunes'],
+ [2,1,'A','GRWM para entrenar','Me arreglo para el gym como si fuera a una cita','GRWM · 30 s','Modelo propia','Comentar su ritual',2,'Lunes'],
+ [3,1,'A','Cozy cardio','No tienes que sudar para ser constante: 20 min en casa','Rutina suave · 30 s','Modelo propia','Guardar y compartir',3,'Lunes'],
+ [4,1,'A','Funkification colombiana','Tu closet de gym no tiene que ser todo negro','Transición de 3 looks','Modelo propia','Elegir look favorito',2,'Viernes'],
+ [5,1,'A','Mujer de 8 a 8','Llevo 12 horas de pie y aún así fui a entrenar','Emotivo · voz en off','Clienta o modelo','Compartir',2,'Domingo'],
+ [6,1,'AB','Así nace tu leggin','Así se hace el leggin que usas… en Guarne, Antioquia','Detrás de cámaras · 25 s','Equipo de fábrica','Comprar directo de fábrica',1,'Jueves'],
+ [7,1,'A','De cansada a poderosa','Lunes 5 pm → Lunes 7 pm','Transición · 15 s','Modelo propia','Guardar',4,'Domingo'],
+ [8,2,'A','Test de la sentadilla','¿Tu leggin pasa el test de la sentadilla?','Demostración · 20 s','Modelo propia','WhatsApp TALLA',2,'Miércoles'],
+ [9,2,'A','Por qué eres M y L','No es tu cuerpo, es la tabla de tallas','Educativo · 30 s','Equipo a cámara','WhatsApp TALLA',1,'Miércoles'],
+ [10,2,'A','Miedo al gym','Nadie te está mirando (y si lo hacen, es por tu outfit)','Humor · 20 s','Creadora UGC','Compartir',4,'Lunes'],
+ [11,2,'A','Tres mujeres, tres tallas','Mismo conjunto, 3 mujeres, 3 tallas','Probador real · 25 s','3 modelos S/M, L, XL','WhatsApp TALLA',1,'Viernes'],
+ [12,2,'A','Barata vs. buena','A los 3 lavados…','Storytime · 25 s','Creadora UGC','Ver cuidado de prenda',4,'Miércoles'],
+ [13,2,'A','Carta a la mujer cansada','Para ti, que llegas cansada y aún así cuidas a todos','Voz en off · 30 s','Equipo + modelo','Compartir',1,'Domingo'],
+ [14,2,'A','El gasto que vale','Gastar en ti no es egoísmo','Costo por uso · 25 s','Equipo a cámara','Consultar precios',3,'Domingo'],
+ [15,3,'AB','Prueba de estrés de la tela','Le hice de todo a este leggin','Prueba visual · 30 s','Modelo propia','Pedir por WhatsApp',3,'Miércoles'],
+ [16,3,'A','Guía de tallas en 30 s','Elige tu talla sin errores','Tutorial · 30 s','Equipo a cámara','WhatsApp TALLA',4,'Viernes'],
+ [17,3,'A','Reseñas de clientas','Ella lo compró, esto dijo a la semana','Collage UGC · 25 s','Clientas / UGC','Pedir por WhatsApp',3,'Jueves'],
+ [18,3,'B','Fabricante vs. intermediario','Por qué pagamos menos que en tiendas: somos la fábrica','Explicativo · 30 s','Equipo a cámara','WhatsApp MAYOR',2,'Jueves'],
+ [19,3,'A','3 piezas, 5 looks','1 enterizo + 1 top + 1 short = 5 looks','Outfit check · 25 s','Modelo propia','Armar combo por WhatsApp',3,'Viernes'],
+ [20,3,'B','Empieza tu negocio','Si quieres tu propio negocio de ropa deportiva…','Explicativo · 30 s','Equipo a cámara','WhatsApp MAYOR',4,'Jueves']
+];
+const lvName={1:'Inconsciente',2:'Problema',3:'Solución'};
+const carril={A:'Clienta final',B:'Revendedora',AB:'Ambas'};
+const cardsEl=document.getElementById('cards'),det=document.getElementById('detail'),chipsEl=document.getElementById('chips');
+function showIdea(d,el){single(cardsEl,el);
+  det.innerHTML=`<div class="eyebrow"><i class="lv n${d[1]}"></i>Idea ${pad(d[0])} · ${lvName[d[1]]}</div><h3>${d[3]}</h3>
+  <p class="hook">“${d[4]}”</p><dl><dt>Formato</dt><dd>${d[5]}</dd><dt>Graba</dt><dd>${d[6]}</dd><dt>Audiencia</dt><dd>${carril[d[2]]}</dd><dt>Llamado</dt><dd>${d[7]}</dd><dt>Publicación</dt><dd>Semana ${d[8]} · ${d[9]}</dd></dl>`}
+ideas.forEach(d=>{const b=document.createElement('button');b.className='ic';b.dataset.l=d[1];b.dataset.c=d[2];
+  b.innerHTML=`<div class="top"><span class="num">${pad(d[0])}</span><i class="lv n${d[1]}"></i></div><h5>${d[3]}</h5>`;
+  b.onclick=()=>showIdea(d,b);cardsEl.appendChild(b)});
+[['Todas',()=>true],['Inconsciente',c=>c.dataset.l==='1'],['Problema',c=>c.dataset.l==='2'],['Solución',c=>c.dataset.l==='3'],['Revendedora',c=>c.dataset.c.includes('B')]]
+.forEach(([n,f],i)=>{const b=document.createElement('button');b.className='chip';b.textContent=n;
+  b.onclick=()=>{single(chipsEl,b);let first=null;[...cardsEl.children].forEach((c,j)=>{const ok=f(c);c.classList.toggle('dim',!ok);if(ok&&!first)first=[ideas[j],c]});if(first)showIdea(...first)};
+  chipsEl.appendChild(b);if(i===0)b.click()});
+
+/* ---------- 07 Global → Local ---------- */
+const trends=[
+ ['Funkification','USA','Colores vivos, texturas y siluetas fuera de lo común en lugar del conjunto negro.','Paleta colombiana: mostaza, fucsia, verde selva y coral. “Tu closet de gym no tiene que ser todo negro.”','Bustle, 2026'],
+ ['12-3-30 y weighted vest','USA','Caminata inclinada en caminadora y chaleco con peso; millones de vistas.','Caminata en ladera por Guarne, Laureles o el Parque Arví, con el outfit como protagonista.','Fox News'],
+ ['Cozy cardio','Global','Ejercicio suave en casa, en un ambiente cálido y sin presión.','Apartamento colombiano, un tinto al lado y 20 minutos para ella.','El Tiempo'],
+ ['Get ready with me','Global','Arreglarse frente a cámara antes de entrenar.','Con música colombiana y el lenguaje cercano de la región.','Formato recurrente'],
+ ['Gym to street','USA','El mismo look sirve para entrenar y para la calle.','Del gimnasio al almuerzo o la oficina, pensado para el clima de Medellín.','Formato recurrente'],
+ ['Behind the scenes','Global','Mostrar cómo se fabrica y se empaca un producto.','Las modistas de Guarne, el corte, la costura y la nota escrita a mano.','Formato recurrente'],
+ ['Vintage gym wear','USA','Prendas de segunda mano con patrones y colores retro.','Estética de los 2000 en prenda nueva, con corte actual.','Dazed']
+];
+const tl=document.getElementById('trends'),sw=document.getElementById('swap');
+trends.forEach((t,i)=>{const li=document.createElement('li');li.innerHTML=`<span>${t[0]}</span><small>${t[1]}</small>`;
+  li.onclick=()=>{single(tl,li);sw.innerHTML=`<div class="side a"><div class="eyebrow">Tendencia · ${t[1]}</div><h3>${t[0]}</h3><p>${t[2]}</p><div class="src">Referencia: ${t[4]}</div></div>
+  <div class="arrow">→</div><div class="side b"><div class="eyebrow">Versión Santa Juana</div><h3>Adaptación local</h3><p>${t[3]}</p></div>`};
+  tl.appendChild(li);if(i===0)li.click()});
+
+/* ---------- 09 Calendario ---------- */
+const days=['Lunes','Miércoles','Jueves','Viernes','Domingo'];
+const cal=document.getElementById('cal'),ct=document.getElementById('calTxt');
+cal.insertAdjacentHTML('beforeend','<div class="h"></div>'+days.map(d=>`<div class="h">${d}</div>`).join(''));
+const colors={1:'var(--n1)',2:'var(--n2)',3:'var(--n3)'};
+let firstCell=null;
+[1,2,3,4].forEach(w=>{
+  cal.insertAdjacentHTML('beforeend',`<div class="w">Semana ${w}</div>`);
+  days.forEach(d=>{const it=ideas.find(x=>x[8]===w&&x[9]===d);const b=document.createElement('button');b.className='cell';
+    b.style.borderLeftColor=colors[it[1]];
+    b.innerHTML=`<span class="num">${pad(it[0])}</span><span>${it[3]}</span>`;
+    b.onclick=()=>{cal.querySelectorAll('.cell').forEach(c=>c.classList.remove('on'));b.classList.add('on');
+      ct.innerHTML=`<em>Semana ${w} · ${d}</em> &nbsp; ${it[3]} — “${it[4]}”`};
+    const wrap=document.createElement('div');wrap.style.borderBottom='1px solid var(--line)';wrap.appendChild(b);cal.appendChild(wrap);
+    if(!firstCell)firstCell=b;});
+});
+firstCell.click();
+
+/* ---------- 10 Checklist ---------- */
+const checks=['Precios definidos: detal, mayor y mínimo de compra','Tabla de medidas S a XL','Modelos talla L y XL confirmadas','Permisos de uso de imagen firmados','Creadoras UGC seleccionadas'];
+const ce=document.getElementById('checks');
+function prog(){const n=ce.querySelectorAll('.on').length;document.getElementById('prog').style.width=(n/checks.length*100)+'%';
+  document.getElementById('progtxt').textContent=n===checks.length?'Listo para iniciar la producción.':`${n} de ${checks.length} listos`}
+checks.forEach(t=>{const li=document.createElement('li');li.innerHTML=`<i class="box"></i><span>${t}</span>`;li.onclick=()=>{li.classList.toggle('on');prog()};ce.appendChild(li)});
+prog();
+
+go(0);
+</script>
+</body>
+</html>
